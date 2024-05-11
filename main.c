@@ -6,7 +6,7 @@
 /*   By: loic <loic@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/05/11 14:45:50 by loic             ###   ########.fr       */
+/*   Updated: 2024/05/11 15:11:00 by loic             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	printf("%s\n", argv[1]);
+	printf("test");
 	return (0);
 }
