@@ -4,13 +4,13 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-LIB = -Llibft
+LIB = -Llibft -lft -lreadline
 
 
 INC = minishell.h libft/libft.h
 
 
-SRCS = main.c \
+SRCS = main.c execve_utils.c\
 
 OBJS = $(SRCS:.c=.o)
 

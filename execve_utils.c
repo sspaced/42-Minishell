@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   execve_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loic <loic@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/05/15 21:11:30 by loic             ###   ########.fr       */
+/*   Created: 2024/05/15 20:15:32 by loic              #+#    #+#             */
+/*   Updated: 2024/05/15 20:57:59 by loic             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "./libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-// execve_utils.c
-int	exec_command(char *command, char** argv);
+int	exec_command(char *command, char** argument)
+{
+	char *command_path;
 
-#endif
+	command_path = "/bin/";
+	command_path = ft_strjoin(command_path, command);
+	if (execve(command_path, argument, NULL) == -1)
+	{
+		perror("main.c @ line 23 ");
+		exit(EXIT_FAILURE);
+	}
+	return 0;
+}
