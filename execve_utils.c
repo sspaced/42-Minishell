@@ -17,6 +17,7 @@ int	exec_command(char *command, char** argument)
 	char *command_path;
 
 	command_path = "/bin/";
+	// Maybe use strncat
 	command_path = ft_strjoin(command_path, command);
 	if (execve(command_path, argument, NULL) == -1)
 	{

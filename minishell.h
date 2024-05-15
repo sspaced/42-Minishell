@@ -18,6 +18,7 @@
 # include "./libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 // execve_utils.c
 int	exec_command(char *command, char** argv);
