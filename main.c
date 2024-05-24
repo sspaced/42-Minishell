@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/05/22 22:33:22 by root             ###   ########.fr       */
+/*   Updated: 2024/05/24 15:36:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 int	main(int argc, char **argv, char *envp[])
 {
 	int fork_id;
+	char *user_input;
 	char **argument;
 	int status;
+	
 	if (argc != 1 || !argv[0])
 		return(perror("main.c @ line 19 "), EXIT_FAILURE);
 	while (1) 
 	{
-		char *user_input;
 		user_input = readline("minishell$ ");
 		if (!ft_strncmp("exit", user_input, 4) && ft_strlen(user_input) == 4)
 		{
