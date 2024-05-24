@@ -10,7 +10,7 @@ LIB = -Llibft -lft -lreadline
 INC = minishell.h libft/libft.h
 
 
-SRCS = main.c execve_utils.c\
+SRCS = main.c execve_utils.c debug_utils.c\
 
 OBJS = $(SRCS:.c=.o)
 
