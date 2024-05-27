@@ -1,53 +1,42 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: loic <loic@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/05/11 14:43:58 by loic             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <readline/readline.h>
 
-typedef enum 
+typedef enum e_lexer
 {
     SINGLE_QUOTE,
     DOUBLE_QUOTE,
     DOLLAR,
     GREATER,
+    GREATER2,
     SMALLER,
+    SMALLER2,
     PIPE,
     WORD,
-
-} lexer;
-
-typedef enum
-{
-    OUTSIDE,
-    INSIDE_SINGLE,
-    INSIDE_DOUBLE,
-} quote_state;
+    SEMICOLON,
+    AND,
+} t_lexer;
 
 typedef struct s_input
 {
-    lexer type;
+    t_lexer type;
     char *value;
-    struct input *next;
- } t_input;
+    struct s_input *next;
+} t_input;
 
-//parser
-
-quote_state update_state(char c, quote_state state);
-lexer detect_token(char c, quote_state state);
-void tokeniser(char *str);
-void parse_args(int argc, char **argv);
+void handle_greater(char *input, int *i, t_input **tokens);
+void handle_smaller(char *input, int *i, t_input **tokens);
+void handle_special_chars(char *input, int *i, t_input **tokens);
+void handle_quotes(char *input, int *i, t_input **tokens, char quote_type);
+void handle_word(char *input, int *i, t_input **tokens);
+void tokenize_input(char *input, t_input **tokens);
+void add_token(t_input **tokens, t_input *new_token);
+void free_tokens(t_input *tokens);
+void print_tokens(t_input *tokens);
 
 
 #endif
