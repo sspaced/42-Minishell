@@ -1,0 +1,5 @@
+[ ] Function that put each line of envp in a chained list.
+[ ] Function that search a key (ex : PATH) in the envp chained list.
+[ ] Function that add a node in the envp chained list, usefull to make export builtin.
+[ ] Function that delete a node in the envp chained list, usefull for unset builtin.
+[ ] Function that diplay the envp chained list, usefull for env builtin.

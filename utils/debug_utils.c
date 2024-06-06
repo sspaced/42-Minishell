@@ -6,11 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 18:30:18 by root              #+#    #+#             */
-/*   Updated: 2024/05/22 18:34:33 by root             ###   ########.fr       */
+/*   Updated: 2024/06/06 20:44:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../headers/minishell.h"
 
 void	debug_display_array(char **array)
 {

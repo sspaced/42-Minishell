@@ -7,10 +7,10 @@ CFLAGS = -Wall -Wextra -Werror
 LIB = -Llibft -lft -lreadline
 
 
-INC = minishell.h libft/libft.h
+INC = headers/minishell.h libft/libft.h
 
 
-SRCS = main.c execve_utils.c debug_utils.c\
+SRCS = main.c utils/execve_utils.c utils/debug_utils.c utils/envp_utils.c\
 
 OBJS = $(SRCS:.c=.o)
 
