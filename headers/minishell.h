@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/06 23:30:30 by root             ###   ########.fr       */
+/*   Updated: 2024/06/07 16:47:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-// envp_utils.c
+// struct
 typedef struct s_envp_list
 {
 	char			*key;
@@ -28,18 +28,37 @@ typedef struct s_envp_list
 	struct s_envp_list	*next;
 }					t_envp_list;
 
-size_t		strlen_until(char	*str, char	until_char);
-char		**extract_key_value(char *envp_line);
-t_envp_list	*lstlast(t_envp_list *lst);
-void		lstadd_back(t_envp_list **lst, t_envp_list *new);
-int			fill_envp_list(t_envp_list **envp_list, char **envp);
-void		display_envp_list(t_envp_list **envp_list);
+//[FOLDER] builtins
+//[FILE] env.c
+void	display_envp(t_envp_list **envp_list);
+//[FILE] export.c
+/*#########################################################################*/
+//[FOLDER] utils
 
+//[FOLDER] general_utils
+//[FILE] general_utils.c
+size_t			str_len_until(char	*str, char	until_char);
 
-// execve_utils.c
-int			exec_command(char *command, char** argv, char **envp);
-void		check_path(char *cmd);
+//[FOLDER] envp_utils
+//[FILE] envp_list_utils.c
+void			list_add_back(t_envp_list **lst, t_envp_list *new);
+t_envp_list		*list_last(t_envp_list *lst);
+t_envp_list		*envp_list_create_node(char	*key, char	*value);
+void			envp_list_clear(t_envp_list	**envp_list);
+//[FILE] envp_list_init.c
+int				fill_envp_list(t_envp_list **envp_list, char **envp);
+char			**extract_key_value(char *envp_line);
+//[FILE] envp_list_tools.c
+char	*envp_list_get(t_envp_list **envp_list, char *key);
+int		envp_list_add(t_envp_list **envp_list, char *key, char *value);
+int		envp_list_del(t_envp_list **envp_list, char *key);
+/*#########################################################################*/
+///////wip
+//[FILE] execve_utils.c
+int				exec_command(char *command, char** argv, char **envp);
+void			check_path(char *cmd);
 
-// debug_utils.c
-void		debug_display_array(char **array);
+//[FILE] debug_utils.c
+void			debug_display_array(char **array);
+/*#########################################################################*/
 #endif

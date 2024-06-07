@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = # -Wall -Wextra -Werror
 
 LIB = -Llibft -lft -lreadline
 
@@ -10,7 +10,15 @@ LIB = -Llibft -lft -lreadline
 INC = headers/minishell.h libft/libft.h
 
 
-SRCS = main.c utils/execve_utils.c utils/debug_utils.c utils/envp_utils.c\
+SRCS = 	main.c\
+		utils/execve_utils.c\
+		utils/debug_utils.c\
+		utils/general_utils/general_utils.c\
+		utils/envp_utils/envp_list_utils.c\
+		utils/envp_utils/envp_list_init.c\
+		utils/envp_utils/envp_list_tools.c\
+		builtins/env.c\
+
 
 OBJS = $(SRCS:.c=.o)
 
