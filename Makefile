@@ -18,6 +18,7 @@ SRCS = 	main.c\
 		utils/envp_utils/envp_list_init.c\
 		utils/envp_utils/envp_list_tools.c\
 		builtins/env.c\
+		builtins/export.c\
 
 
 OBJS = $(SRCS:.c=.o)

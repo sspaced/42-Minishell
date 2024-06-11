@@ -6,19 +6,20 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 14:37:12 by root              #+#    #+#             */
-/*   Updated: 2024/06/07 16:57:15 by root             ###   ########.fr       */
+/*   Updated: 2024/06/12 00:19:23 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+//[COMMENT] Query the value associated to a key.
 char	*envp_list_get(t_envp_list **envp_list, char *key)
 {
 	size_t		key_len;
 	char		*value;
-	t_envp_list *envp_next;
-	t_envp_list *envp_head;
-	
+	t_envp_list	*envp_next;
+	t_envp_list	*envp_head;
+
 	if (!envp_list)
 		return (NULL);
 	key_len = ft_strlen(key);
@@ -28,7 +29,7 @@ char	*envp_list_get(t_envp_list **envp_list, char *key)
 	{
 		envp_next = (*envp_list)->next;
 		if (!ft_strncmp(key, (*envp_list)->key, key_len))
-			value  = (*envp_list)->value;
+			value = (*envp_list)->value;
 		*envp_list = envp_next;
 	}
 	*envp_list = envp_head;
@@ -36,14 +37,17 @@ char	*envp_list_get(t_envp_list **envp_list, char *key)
 }
 
 //[SECURED]
+//[COMMENT] Add new key/value node. 
+			// (crush node re write if key already exist)(ex : export)
 int	envp_list_add(t_envp_list **envp_list, char *key, char *value)
 {
 	char		*key_dup;
 	char		*value_dup;
 	t_envp_list	*envp_node;
-	
+
 	if (!envp_list)
 		return (0);
+	envp_list_del(envp_list, key);
 	key_dup = ft_strdup(key);
 	if (!key_dup)
 		return (0);
@@ -57,7 +61,8 @@ int	envp_list_add(t_envp_list **envp_list, char *key, char *value)
 	return (1);
 }
 
-//[TODO] test security
+//[TODO] test security, split into smaller functions
+//[COMMENT] Del one key/value pair. (ex : unset)
 int	envp_list_del(t_envp_list **envp_list, char *key)
 {
 	size_t		key_len;
@@ -65,7 +70,7 @@ int	envp_list_del(t_envp_list **envp_list, char *key)
 	t_envp_list	*envp_previous;
 	t_envp_list	*envp_current;
 	t_envp_list	*envp_head;
-	
+
 	if (!envp_list)
 		return (0);
 	key_len = ft_strlen(key);
@@ -76,15 +81,8 @@ int	envp_list_del(t_envp_list **envp_list, char *key)
 		envp_next = (*envp_list)->next;
 		if (!ft_strncmp(key, (*envp_list)->key, key_len))
 		{
-			if (!envp_previous)
-				envp_head = envp_next;
-			else
-				envp_previous->next = envp_next;
-			if ((*envp_list)->key != NULL)
-				free((*envp_list)->key);
-			if ((*envp_list)->value != NULL)
-				free((*envp_list)->value);
-			envp_current = *envp_list;
+			re_link_node(&envp_previous, &envp_head, &envp_next);
+			del_one(*envp_list);
 			free(*envp_list);
 		}
 		envp_previous = *envp_list;
@@ -92,4 +90,23 @@ int	envp_list_del(t_envp_list **envp_list, char *key)
 	}
 	*envp_list = envp_head;
 	return (1);
+}
+
+//[COMMENT] Free content of a key/value pair node.
+void	del_one(t_envp_list *envp_to_del)
+{
+	if (envp_to_del->key != NULL)
+		free(envp_to_del->key);
+	if (envp_to_del->value != NULL)
+		free(envp_to_del->value);
+}
+
+//[COMMENT] Keep linking between undeleted node.
+void	re_link_node(t_envp_list **envp_previous,
+		t_envp_list **envp_head, t_envp_list **envp_next)
+{
+	if (!(*envp_previous))
+		(*envp_head) = (*envp_next);
+	else
+		(*envp_previous)->next = (*envp_next);
 }

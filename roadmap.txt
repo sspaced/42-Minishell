@@ -1,5 +1,10 @@
 [x] Function that put each line of envp in a chained list.
 [x] Function that search a key (ex : PATH) in the envp chained list and return associated value.
-[ ] Function that add a node in the envp chained list, usefull to make export builtin. (list_add_back + create node ?)
-[ ] Function that delete a node in the envp chained list, usefull for unset builtin.
-[ ] Function that diplay the envp chained list, usefull for env builtin.
+[x] Function that add a node in the envp chained list, usefull to make export builtin. (list_add_back + create node ?)
+[x] Function that delete a node in the envp chained list, usefull for unset builtin.
+[x] Function that display the envp chained list, usefull for env builtin.
+[x] Fix "envp_list_add" so it del before adding if the key already axist.
+[x] Make the export (builtin) logic.
+[ ] Make the unset (builtin) logic.
+[x] Make de env (builtin) logic.
+[ ] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).

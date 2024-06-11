@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/07 16:47:17 by root             ###   ########.fr       */
+/*   Updated: 2024/06/12 00:11:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ typedef struct s_envp_list
 //[FILE] env.c
 void	display_envp(t_envp_list **envp_list);
 //[FILE] export.c
+int export_envp(t_envp_list **envp_list, char *user_input);
+//[FILE] unset.c
 /*#########################################################################*/
 //[FOLDER] utils
 
 //[FOLDER] general_utils
 //[FILE] general_utils.c
 size_t			str_len_until(char	*str, char	until_char);
-
+size_t			array_len(char **array);
+void			clear_array(char **array);
 //[FOLDER] envp_utils
 //[FILE] envp_list_utils.c
 void			list_add_back(t_envp_list **lst, t_envp_list *new);
@@ -52,6 +55,8 @@ char			**extract_key_value(char *envp_line);
 char	*envp_list_get(t_envp_list **envp_list, char *key);
 int		envp_list_add(t_envp_list **envp_list, char *key, char *value);
 int		envp_list_del(t_envp_list **envp_list, char *key);
+void	del_one(t_envp_list *envp_to_del);
+void	re_link_node(t_envp_list **envp_previous, t_envp_list **envp_head, t_envp_list **envp_next);
 /*#########################################################################*/
 ///////wip
 //[FILE] execve_utils.c
