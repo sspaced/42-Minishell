@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 14:37:12 by root              #+#    #+#             */
-/*   Updated: 2024/06/12 00:19:23 by root             ###   ########.fr       */
+/*   Updated: 2024/06/17 19:58:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	envp_list_add(t_envp_list **envp_list, char *key, char *value)
 	return (1);
 }
 
-//[TODO] test security, split into smaller functions
+//[TODO] test security
 //[COMMENT] Del one key/value pair. (ex : unset)
 int	envp_list_del(t_envp_list **envp_list, char *key)
 {
@@ -79,11 +79,14 @@ int	envp_list_del(t_envp_list **envp_list, char *key)
 	while (*envp_list)
 	{
 		envp_next = (*envp_list)->next;
-		if (!ft_strncmp(key, (*envp_list)->key, key_len))
+		if (ft_strlen((*envp_list)->key) == key_len)
 		{
-			re_link_node(&envp_previous, &envp_head, &envp_next);
-			del_one(*envp_list);
-			free(*envp_list);
+			if (!ft_strncmp(key, (*envp_list)->key, key_len))
+			{
+				re_link_node(&envp_previous, &envp_head, &envp_next);
+				del_one(*envp_list);
+				free(*envp_list);
+			}
 		}
 		envp_previous = *envp_list;
 		*envp_list = envp_next;

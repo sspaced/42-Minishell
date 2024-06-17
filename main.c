@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/06/12 00:10:20 by root             ###   ########.fr       */
+/*   Updated: 2024/06/17 20:13:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	main(int argc, char **argv, char *envp[])
 			export_envp(&envp_list, user_input);
 			free(user_input);
 		}
+		else if (ft_strlen(user_input) >= 5 && !ft_strncmp("unset", user_input, 5))
+		{
+			unset_envp(&envp_list, user_input);
+			free(user_input);
+		}
 		else
 		{
 			fork_id = fork();
@@ -73,16 +78,17 @@ int	main(int argc, char **argv, char *envp[])
 // 	envp_list = NULL;
 	
 // 	//[TODO] test error handling, malloc == null, valgring, fsanitize
-// 	if (!fill_envp_list(&envp_list, envp))
-// 		return(perror("main.c/debug @ line 63 "), envp_list_clear(&envp_list), EXIT_FAILURE);
-// 	//display_envp(&envp_list);
+// 	// if (!fill_envp_list(&envp_list, envp))
+// 	// 	return(perror("main.c/debug @ line 63 "), envp_list_clear(&envp_list), EXIT_FAILURE);
+// 	export_envp(&envp_list, "export ke=value");
+// 	export_envp(&envp_list, "export key=value");
 // 	//printf("value %s\n", envp_list_get(&envp_list, "SSPACE"));
 // 	// if (!envp_list_add(&envp_list, "SSPACE", "test"))
 // 	// 	return(perror("main.c/debug @ line 68 "), envp_list_clear(&envp_list), EXIT_FAILURE);
 // 	// if (!envp_list_add(&envp_list, "HELLO", "hi !"))
 // 	// 	return(perror("main.c/debug @ line 68 "), envp_list_clear(&envp_list), EXIT_FAILURE);
 // 	//envp_list_del(&envp_list, "SSPACEE");
-// 	export_envp(&envp_list, "");
+// 	unset_envp(&envp_list, "");
 // 	display_envp(&envp_list);
 // 	envp_list_clear(&envp_list);
 // }

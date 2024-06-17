@@ -5,6 +5,14 @@
 [x] Function that display the envp chained list, usefull for env builtin.
 [x] Fix "envp_list_add" so it del before adding if the key already axist.
 [x] Make the export (builtin) logic.
-[ ] Make the unset (builtin) logic.
+[x] Make the unset (builtin) logic.
 [x] Make de env (builtin) logic.
+[ ] Make cd (builtin) logic
 [ ] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
+
+[ ] Pipe :
+	[ ] ...
+[ ] Redirection :
+	[ ] ...
+[ ] Signals : 
+	[ ] ...

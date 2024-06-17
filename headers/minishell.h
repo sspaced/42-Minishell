@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/13 22:48:26 by root             ###   ########.fr       */
+/*   Updated: 2024/06/17 19:27:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void			display_envp(t_envp_list **envp_list);
 //[FILE] export.c
 int				export_envp(t_envp_list **envp_list, char *user_input);
 //[FILE] unset.c
+void			unset_envp(t_envp_list **envp_list, char *user_input);
 /*#########################################################################*/
 //[FOLDER] utils
 
