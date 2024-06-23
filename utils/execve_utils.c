@@ -6,50 +6,66 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:15:32 by loic              #+#    #+#             */
-/*   Updated: 2024/06/06 20:44:39 by root             ###   ########.fr       */
+/*   Updated: 2024/06/23 23:54:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-// void	command_handler(char** user_input, char **envp)
+// int		exec_command(char *command, char** argument, char **envp)
 // {
-// 	char **argument;
-// 	argument = ft_split(user_input, ' ');
-// 	//exec_command(char *command, char** argument, char **envp);
-// }
-// void	display_envp(char **envp)
-// {
-	
+// 	char *command_path;
+// 	command_path = "/bin/";
+// 	// Maybe use strncat
+// 	command_path = ft_strjoin(command_path, command);
+// 	if (execve(command_path, argument, envp) == -1)
+// 	{
+// 		perror("execve_utils.c @ line 25 ");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	return 0;
 // }
 
-// void	check_path(char *cmd)
-// {
-// 	int		counter;
-// 	char	*path; 
-// 	char	**splitted_path;
-	
-// 	counter = 0;
-//    	path =  ("PATH");
-// 	splitted_path = ft_split(path, ':');
-// 	while (splitted_path[counter])
-// 	{
-// 		//printf("%s\n", access());
-// 		counter++;
-// 	}
-// }
-int		exec_command(char *command, char** argument, char **envp)
+//[TODO] Make a function that reverse the link list back into a char **envp to not use envp[] anymore.
+int		exec_command_v2(char *command, char** argument, t_envp_list **envp_list, char **envp)
 {
-	char *command_path;
-	command_path = "/bin/";
-	//check_path(command);
-	// Maybe use strncat
-	command_path = ft_strjoin(command_path, command);
-	//debug_display_array(argument);
+	char	*command_path;
+	char	*path;
+	char	**splitted_path;
+	
+	path = envp_list_get(envp_list, "PATH");
+	if (!path)
+		return(printf("No PATH set !\n"), 0);
+	splitted_path = ft_split(path, ':');
+	if (!splitted_path)
+		return (0);
+	command_path = check_path(command, splitted_path);
+	clear_array(splitted_path);
+	if (!command_path)
+		return(0);
 	if (execve(command_path, argument, envp) == -1)
+		return (perror("execve_utils.c @ line 25 "), free(command_path), 0);
+	return (free(command_path), 1);
+}
+
+//[Secured]
+char	*check_path(char *command, char **splitted_path)
+{
+	char	*command_path;
+	char	*command_path_buff;
+	
+	command = ft_strjoin("/", command);
+	if (!command)
+		return (NULL);
+	while (*splitted_path)
 	{
-		perror("execve_utils.c @ line 25 ");
-		exit(EXIT_FAILURE);
+		command_path = ft_strjoin(*splitted_path, command);
+		if (!command_path)
+			return (free(command), NULL);
+		if (access(command_path, X_OK) == 0)
+			return (free(command), command_path);
+		free(command_path);
+		splitted_path++;
 	}
-	return 0;
+	return (perror(command + 1), free(command), NULL);
 }

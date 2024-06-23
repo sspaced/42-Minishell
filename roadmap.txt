@@ -7,7 +7,8 @@
 [x] Make the export (builtin) logic.
 [x] Make the unset (builtin) logic.
 [x] Make de env (builtin) logic.
-[ ] Make cd (builtin) logic
+[x] Make cd (builtin) logic
+[x] Make history.
 [ ] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
 
 [ ] Pipe :

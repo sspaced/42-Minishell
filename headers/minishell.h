@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/17 19:27:55 by root             ###   ########.fr       */
+/*   Updated: 2024/06/23 23:44:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+#include <errno.h>
 
 // struct
 typedef struct s_envp_list
@@ -35,6 +36,8 @@ void			display_envp(t_envp_list **envp_list);
 int				export_envp(t_envp_list **envp_list, char *user_input);
 //[FILE] unset.c
 void			unset_envp(t_envp_list **envp_list, char *user_input);
+//[FILE] cd.c
+void			change_directory(char *user_input);
 /*#########################################################################*/
 //[FOLDER] utils
 
@@ -62,7 +65,8 @@ void			re_link_node(t_envp_list **envp_previous, t_envp_list **envp_head, t_envp
 ///////wip
 //[FILE] execve_utils.c
 int				exec_command(char *command, char** argv, char **envp);
-void			check_path(char *cmd);
+int				exec_command_v2(char *command, char** argument, t_envp_list **envp_list, char **envp);
+char	*check_path(char *command, char **splitted_path);
 
 //[FILE] debug_utils.c
 void			debug_display_array(char **array);
