@@ -9,7 +9,7 @@
 [x] Make de env (builtin) logic.
 [x] Make cd (builtin) logic
 [x] Make history.
-[ ] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
+[x] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
 
 [ ] Pipe :
 	[ ] ...
