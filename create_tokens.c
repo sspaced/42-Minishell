@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+t_input	*create_token(t_lexer type, char *value)
+{
+	t_input	*token;
+
+	token = (t_input *)malloc(sizeof(t_input));
+	if (!token)
+		return (NULL);
+	token->type = type;
+	token->value = strdup(value);
+	token->next = NULL;
+	return (token);
+}
+
 void add_token(t_input **tokens, t_input *new_token)
 {
     t_input *current;
@@ -25,14 +38,5 @@ void free_tokens(t_input *tokens)
         tokens = tokens->next;
         free(tmp->value);
         free(tmp);
-    }
-}
-
-void print_tokens(t_input *tokens)
-{
-    while (tokens)
-    {
-        printf("Type: %d, Value: %s\n", tokens->type, tokens->value);
-        tokens = tokens->next;
     }
 }

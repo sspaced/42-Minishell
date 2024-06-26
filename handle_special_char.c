@@ -30,33 +30,15 @@ void handle_smaller(char *input, int *i, t_input **tokens)
 
 void handle_special_chars(char *input, int *i, t_input **tokens)
 {
-    if (input[*i] == '>')
-        handle_greater(input, i, tokens);
-    else if (input[*i] == '<')
-        handle_smaller(input, i, tokens);
-    else if (input[*i] == '|')
+    char special_char[3] = {0, 0, 0};
+    special_char[0] = input[*i];
+    if ((input[*i] == '>' && input[*i + 1] == '>') || (input[*i] == '<' && input[*i + 1] == '<'))
     {
-        add_token(tokens, create_token(PIPE, "|"));
-        *i += 1;
+        special_char[1] = input[*i + 1];
+        (*i)++;
     }
-    else if (input[*i] == ';')
-    {
-        add_token(tokens, create_token(SEMICOLON, ";"));
-        *i += 1;
-    }
-    else if (input[*i] == '&')
-    {
-        if (input[*i + 1] == '&')
-        {
-            add_token(tokens, create_token(AND, "&&"));
-            *i += 2;
-        }
-        else
-            *i += 1;
-    }
-    else if (input[*i] == '$')
-    {
-        add_token(tokens, create_token(DOLLAR, "$"));
-        *i += 1;
-    }
+    (*i)++;
+    t_lexer type = (special_char[0] == '|') ? PIPE : (special_char[0] == '>') ? (special_char[1] == '>') ? GREATER2 : GREATER : (special_char[1] == '<') ? SMALLER2 : SMALLER;
+    t_input *token = create_token(type, special_char);
+    add_token(tokens, token);
 }

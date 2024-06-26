@@ -1,17 +1,24 @@
 #include "minishell.h"
-
 void handle_word(char *input, int *i, t_input **tokens)
 {
     int start = *i;
-    while (input[*i] && !isspace(input[*i]) && input[*i] != '>' &&
-           input[*i] != '<' && input[*i] != '|' && input[*i] != ';' &&
-           input[*i] != '&' && input[*i] != '$')
+    while (input[*i] && !isspace(input[*i]) && input[*i] != '>' && input[*i] != '<' && input[*i] != '|')
     {
-        (*i)++;
+        if (input[*i] == '$')
+        {
+            (*i)++;
+            while (isalnum(input[*i]) || input[*i] == '_')
+                (*i)++;
+        }
+        else
+        {
+            (*i)++;
+        }
     }
-    char *word = strndup(&input[start], *i - start);
-    add_token(tokens, create_token(WORD, word));
-    free(word);
+    char *value = strndup(input + start, *i - start);
+    t_input *token = create_token(WORD, value);
+    add_token(tokens, token);
+    free(value);
 }
 
 void tokenize_input(char *input, t_input **tokens)
@@ -20,40 +27,13 @@ void tokenize_input(char *input, t_input **tokens)
     while (input[i])
     {
         if (isspace(input[i]))
-        {
             i++;
-            continue;
-        }
-        if (input[i] == '\'' || input[i] == '"')
-        {
+        else if (input[i] == '\'' || input[i] == '"')
             handle_quotes(input, &i, tokens, input[i]);
-        }
-        else
-        {
+        else if (input[i] == '>' || input[i] == '<' || input[i] == '|')
             handle_special_chars(input, &i, tokens);
-            if (input[i] && !isspace(input[i]) && input[i] != '>' &&
-                input[i] != '<' && input[i] != '|' && input[i] != ';' &&
-                input[i] != '&' && input[i] != '$')
-            {
-                handle_word(input, &i, tokens);
-            }
-        }
+        else
+            handle_word(input, &i, tokens);
     }
 }
 
-int main(void)
-{
-    char *input;
-    t_input *tokens;
-
-    tokens = NULL;
-    while ((input = readline("minishell> ")) != NULL)
-    {
-        tokenize_input(input, &tokens);
-        print_tokens(tokens);
-        free_tokens(tokens);
-        tokens = NULL;
-        free(input);
-    }
-    return (0);
-}
