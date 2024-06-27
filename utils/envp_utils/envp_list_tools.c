@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 14:37:12 by root              #+#    #+#             */
-/*   Updated: 2024/06/17 19:58:57 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 18:37:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,57 @@ int	envp_list_del(t_envp_list **envp_list, char *key)
 	return (1);
 }
 
-//[COMMENT] Free content of a key/value pair node.
-void	del_one(t_envp_list *envp_to_del)
+//[TODO] test security
+size_t	envp_len(t_envp_list **envp_list)
 {
-	if (envp_to_del->key != NULL)
-		free(envp_to_del->key);
-	if (envp_to_del->value != NULL)
-		free(envp_to_del->value);
+	t_envp_list	*envp_head;
+	t_envp_list	*envp_next;
+	size_t counter;
+	
+	counter = 0;
+	envp_head = *envp_list;
+	
+	while (*envp_list)
+	{
+		envp_next = (*envp_list)->next;
+		*envp_list = envp_next;
+		counter++;
+	}
+	*envp_list = envp_head;
+	return (counter);
 }
 
-//[COMMENT] Keep linking between undeleted node.
-void	re_link_node(t_envp_list **envp_previous,
-		t_envp_list **envp_head, t_envp_list **envp_next)
+//[TODO] test security
+char *join_key_value(char *key, char *value)
 {
-	if (!(*envp_previous))
-		(*envp_head) = (*envp_next);
-	else
-		(*envp_previous)->next = (*envp_next);
+	char *key_equal;
+	char *key_value;
+
+	key_equal = ft_strjoin(key, " = ");
+	key_value = ft_strjoin(key_equal, value);
+	return (key_value);
+}
+
+//[TODO] test security
+char	**envp_linked_to_list(t_envp_list **envp_list)
+{
+	t_envp_list	*envp_head;
+	t_envp_list	*envp_next;
+	size_t envp_linked_len;
+	size_t counter;
+	char **envp;
+
+	counter = 0;
+	envp_linked_len = envp_len(envp_list);
+	envp_head = *envp_list;
+	envp = malloc((envp_linked_len + 1) * sizeof(char *));
+	while (*envp_list)
+	{
+		envp_next = (*envp_list)->next;
+		envp[counter] = join_key_value((*envp_list)->key, (*envp_list)->value);
+		*envp_list = envp_next;
+		counter++;
+	}
+	*envp_list = envp_head;
+	return (envp);
 }

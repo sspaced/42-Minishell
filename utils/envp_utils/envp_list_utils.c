@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:42:39 by root              #+#    #+#             */
-/*   Updated: 2024/06/12 00:20:07 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 18:01:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,23 @@ void	envp_list_clear(t_envp_list	**envp_list)
 		free(*envp_list);
 		*envp_list = envp_next;
 	}
+}
+
+//[COMMENT] Free content of a key/value pair node.
+void	del_one(t_envp_list *envp_to_del)
+{
+	if (envp_to_del->key != NULL)
+		free(envp_to_del->key);
+	if (envp_to_del->value != NULL)
+		free(envp_to_del->value);
+}
+
+//[COMMENT] Keep linking between undeleted node.
+void	re_link_node(t_envp_list **envp_previous,
+		t_envp_list **envp_head, t_envp_list **envp_next)
+{
+	if (!(*envp_previous))
+		(*envp_head) = (*envp_next);
+	else
+		(*envp_previous)->next = (*envp_next);
 }

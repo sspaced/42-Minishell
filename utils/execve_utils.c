@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:15:32 by loic              #+#    #+#             */
-/*   Updated: 2024/06/23 23:54:40 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 18:46:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@
 // 	return 0;
 // }
 
-//[TODO] Make a function that reverse the link list back into a char **envp to not use envp[] anymore.
+//[BUG] clear don't work anymore with envp_local ("TERM environment variable not set.").	
 int		exec_command_v2(char *command, char** argument, t_envp_list **envp_list, char **envp)
 {
 	char	*command_path;
 	char	*path;
 	char	**splitted_path;
+	char 	**envp_local;
 	
 	path = envp_list_get(envp_list, "PATH");
 	if (!path)
@@ -43,7 +44,8 @@ int		exec_command_v2(char *command, char** argument, t_envp_list **envp_list, ch
 	clear_array(splitted_path);
 	if (!command_path)
 		return(0);
-	if (execve(command_path, argument, envp) == -1)
+	envp_local = envp_linked_to_list(envp_list);
+	if (execve(command_path, argument, envp_local) == -1)
 		return (perror("execve_utils.c @ line 25 "), free(command_path), 0);
 	return (free(command_path), 1);
 }

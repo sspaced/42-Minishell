@@ -17,6 +17,7 @@ SRCS = 	main.c\
 		utils/envp_utils/envp_list_utils.c\
 		utils/envp_utils/envp_list_init.c\
 		utils/envp_utils/envp_list_tools.c\
+		utils/pipe_utils/pipe_utils.c\
 		builtins/env.c\
 		builtins/export.c\
 		builtins/unset.c\

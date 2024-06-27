@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/23 23:44:57 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 18:15:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void			change_directory(char *user_input);
 //[FILE] general_utils.c
 size_t			str_len_until(char	*str, char	until_char);
 size_t			array_len(char **array);
+size_t			array_array_len(char ***array);
+size_t			array_len_gen(int **array);
 void			clear_array(char **array);
 //[FOLDER] envp_utils
 //[FILE] envp_list_utils.c
@@ -52,6 +54,8 @@ void			list_add_back(t_envp_list **lst, t_envp_list *new);
 t_envp_list		*list_last(t_envp_list *lst);
 t_envp_list		*envp_list_create_node(char	*key, char	*value);
 void			envp_list_clear(t_envp_list	**envp_list);
+void			del_one(t_envp_list *envp_to_del);
+void			re_link_node(t_envp_list **envp_previous, t_envp_list **envp_head, t_envp_list **envp_next);
 //[FILE] envp_list_init.c
 int				fill_envp_list(t_envp_list **envp_list, char **envp);
 char			**extract_key_value(char *envp_line);
@@ -59,14 +63,19 @@ char			**extract_key_value(char *envp_line);
 char			*envp_list_get(t_envp_list **envp_list, char *key);
 int				envp_list_add(t_envp_list **envp_list, char *key, char *value);
 int				envp_list_del(t_envp_list **envp_list, char *key);
-void			del_one(t_envp_list *envp_to_del);
-void			re_link_node(t_envp_list **envp_previous, t_envp_list **envp_head, t_envp_list **envp_next);
+char			**envp_linked_to_list(t_envp_list **envp_list);
+size_t			envp_len(t_envp_list **envp_list);
+//[FOLDER] pipe_utils
+int				**create_pipe(int nb_pipe);
+void			launch_pipe(char ***commands, t_envp_list **envp_list, char **envp);
+char			***create_command(char **argv);
+void			close_fd(int **pipe_fd_tab);
 /*#########################################################################*/
 ///////wip
 //[FILE] execve_utils.c
 int				exec_command(char *command, char** argv, char **envp);
 int				exec_command_v2(char *command, char** argument, t_envp_list **envp_list, char **envp);
-char	*check_path(char *command, char **splitted_path);
+char			*check_path(char *command, char **splitted_path);
 
 //[FILE] debug_utils.c
 void			debug_display_array(char **array);
