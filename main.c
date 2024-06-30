@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/06/27 21:07:43 by root             ###   ########.fr       */
+/*   Updated: 2024/06/30 21:43:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,12 @@ int	main(int argc, char **argv, char *envp[])
 	t_envp_list	*envp_list;
 	int **fd_tab;
 
-	fd_tab = create_pipe_tab(4);
-	if (fd_tab != NULL)
-		free_int_array(fd_tab, 4);
-	// envp_list = NULL;
-	// if (!fill_envp_list(&envp_list, envp))
-	// 	return(perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
+	envp_list = NULL;
+	if (!fill_envp_list(&envp_list, envp))
+		return(perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
 
-	//commands = create_command(argv);
-	// launch_pipe(commands, &envp_list);
+	commands = create_command(argv);
+	launch_pipe(commands, &envp_list);
 	// while(*commands)
 	// {
 	// 	printf("Command : %s, option : %s\n", (*commands)[0], (*commands)[1]);

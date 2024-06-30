@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/27 21:06:12 by root             ###   ########.fr       */
+/*   Updated: 2024/06/30 22:38:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char			***create_command(char **argv);
 void			close_fd(int **pipe_fd_tab);
 int				**create_pipe_tab(int pipe_nb);
 void free_int_array(int **array, int len);
+void pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab);
 /*#########################################################################*/
 ///////wip
 //[FILE] execve_utils.c

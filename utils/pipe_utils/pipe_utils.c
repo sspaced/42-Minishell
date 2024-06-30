@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:50:54 by root              #+#    #+#             */
-/*   Updated: 2024/06/27 21:57:55 by root             ###   ########.fr       */
+/*   Updated: 2024/06/30 22:40:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	close_all_fd(int **pipe_fd_tab, int pipe_fd_tab_len)
 	}
 }
 
+//[TODO] Test security
+//		 Handle error
 void	handle_child(char **command, int **pipe_fd_tab, int pipe_fd_tab_len, int index, t_envp_list **envp_list)
 {	
 	if (index < pipe_fd_tab_len)
@@ -71,9 +73,12 @@ void	handle_child(char **command, int **pipe_fd_tab, int pipe_fd_tab_len, int in
 		dup2(pipe_fd_tab[index - 1][0], STDIN_FILENO);
 	close_all_fd(pipe_fd_tab, pipe_fd_tab_len);
 	if (!exec_command_v2(command[0], command, envp_list))
-		printf("failed\n");
+		write(2, "failed", 6);
 }
 
+//[TODO]
+//		 Test security
+//		 Handle error
 void	launch_pipe(char ***commands, t_envp_list **envp_list)
 {
 	int **pipe_fd_tab;
@@ -81,7 +86,6 @@ void	launch_pipe(char ***commands, t_envp_list **envp_list)
 	int fork_id;
 	int index;
 	int *fork_id_tab;
-	int status;
 
 	pipe_fd_tab_len = array_array_len(commands) - 1;
 	pipe_fd_tab = create_pipe_tab(pipe_fd_tab_len);
@@ -101,13 +105,21 @@ void	launch_pipe(char ***commands, t_envp_list **envp_list)
 		}
 		index++;
 	}
-	close_all_fd(pipe_fd_tab, pipe_fd_tab_len);
+	pipe_await(pipe_fd_tab_len, fork_id_tab, pipe_fd_tab);
+}
+
+void pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab)
+{
+	int index;
+	int status;
+
 	index = 0;
+	close_all_fd(pipe_fd_tab, pipe_fd_tab_len);
 	while (index < (pipe_fd_tab_len + 1))
 	{
 		waitpid(fork_id_tab[index], &status, 0);
 		index++;
-	}
+	}	
 }
 
 //[TEMP]
