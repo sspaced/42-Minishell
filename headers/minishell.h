@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/27 18:15:54 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 21:06:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,16 @@ int				envp_list_del(t_envp_list **envp_list, char *key);
 char			**envp_linked_to_list(t_envp_list **envp_list);
 size_t			envp_len(t_envp_list **envp_list);
 //[FOLDER] pipe_utils
-int				**create_pipe(int nb_pipe);
-void			launch_pipe(char ***commands, t_envp_list **envp_list, char **envp);
+void			launch_pipe(char ***commands, t_envp_list **envp_list);
 char			***create_command(char **argv);
 void			close_fd(int **pipe_fd_tab);
+int				**create_pipe_tab(int pipe_nb);
+void free_int_array(int **array, int len);
 /*#########################################################################*/
 ///////wip
 //[FILE] execve_utils.c
 int				exec_command(char *command, char** argv, char **envp);
-int				exec_command_v2(char *command, char** argument, t_envp_list **envp_list, char **envp);
+int				exec_command_v2(char *command, char** argument, t_envp_list **envp_list);
 char			*check_path(char *command, char **splitted_path);
 
 //[FILE] debug_utils.c

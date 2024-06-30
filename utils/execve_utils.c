@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:15:32 by loic              #+#    #+#             */
-/*   Updated: 2024/06/27 18:46:11 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 21:52:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 // 	return 0;
 // }
 
-//[BUG] clear don't work anymore with envp_local ("TERM environment variable not set.").	
-int		exec_command_v2(char *command, char** argument, t_envp_list **envp_list, char **envp)
+
+int		exec_command_v2(char *command, char** argument, t_envp_list **envp_list)
 {
 	char	*command_path;
 	char	*path;
@@ -50,7 +50,7 @@ int		exec_command_v2(char *command, char** argument, t_envp_list **envp_list, ch
 	return (free(command_path), 1);
 }
 
-//[Secured]
+//[SECURED]
 char	*check_path(char *command, char **splitted_path)
 {
 	char	*command_path;

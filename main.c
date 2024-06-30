@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/06/27 18:47:28 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 21:07:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 // 			if (fork_id == 0)
 // 			{
 // 				argument = ft_split(user_input, ' ');
-// 				exec_command_v2(argument[0], argument, &envp_list, envp);
+// 				exec_command_v2(argument[0], argument, &envp_list);
 // 			}
 // 			else
 //                 waitpid(fork_id, &status, 0);
@@ -78,7 +78,7 @@
 
 //[Debug] test envp function
 // int main(int argc, char **argv, char *envp[])
-// {
+// {	
 // 	if (argc != 1 || !argv[0])
 // 		return(perror("main.c @ line 19 "), EXIT_FAILURE);
 // 	t_envp_list	*envp_list;
@@ -88,11 +88,18 @@
 // 	//[TODO] test error handling, malloc == null, valgring, fsanitize
 // 	if (!fill_envp_list(&envp_list, envp))
 // 		return(perror("main.c/debug @ line 63 "), envp_list_clear(&envp_list), EXIT_FAILURE);
-	
-// 	char *arg = "ls";
+		
+// 	// display_envp(&envp_list);
+// 	// printf("\n\n\n");
+// 	// while(*envp)
+// 	// {
+// 	// 	printf("%s\n", *envp);
+// 	// 	envp++;
+// 	// }
+// 	char *arg = "pwd";
 // 	char **option = ft_split(arg, ' ');
-// 	exec_command_v2("ls", option, &envp_list, envp);
-// 	clear_array(option);
+// 	exec_command_v2("pwd", option, &envp_list, envp);
+// 	// clear_array(option);
 	
 // 	// export_envp(&envp_list, "export ke=value");
 // 	// display_envp(&envp_list);
@@ -108,25 +115,22 @@ int	main(int argc, char **argv, char *envp[])
 	char		***commands;
 	char		**envp_local;
 	t_envp_list	*envp_list;
-	
-	// splited_input = ft_split(argv[1], '|');
-	// pipe_nb = array_len(splited_input);
-	//[[cmd, arg],[cmd, arg]]
-	// cmd1 = ft_split(splited_input[0], ' ');
-	// cmd2 = ft_split(splited_input[1], ' ');
-	
-	envp_list = NULL;
-	if (!fill_envp_list(&envp_list, envp))
-		return(perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
+	int **fd_tab;
 
-	commands = create_command(argv);
+	fd_tab = create_pipe_tab(4);
+	if (fd_tab != NULL)
+		free_int_array(fd_tab, 4);
+	// envp_list = NULL;
+	// if (!fill_envp_list(&envp_list, envp))
+	// 	return(perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
+
+	//commands = create_command(argv);
+	// launch_pipe(commands, &envp_list);
 	// while(*commands)
 	// {
 	// 	printf("Command : %s, option : %s\n", (*commands)[0], (*commands)[1]);
 	// 	commands++;
 	// }
-
-	launch_pipe(commands, &envp_list, envp);
 	
 	// pipe(pipe_fd);
 	

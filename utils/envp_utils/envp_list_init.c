@@ -6,13 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 14:36:03 by root              #+#    #+#             */
-/*   Updated: 2024/06/12 00:18:01 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 21:52:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-//[Secured]
+//[SECURED]
 //[COMMENT] Duplicate envp in a link list.
 int	fill_envp_list(t_envp_list **envp_list, char **envp)
 {

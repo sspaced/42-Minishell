@@ -10,7 +10,7 @@
 [x] Make cd (builtin) logic
 [x] Make history.
 [x] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
-[ ] Function that make a char ** from envp link list.
+[x] Function that make a char ** from envp link list.
 [ ] Pipe :
 	[ ] Cleanup everything.
 	[ ] Secure everything.
@@ -18,6 +18,5 @@
 	[ ] ...
 [ ] Signals : 
 	[ ] ...
-
 [ ] Bug : 
-	[ ] Clear not working anymore since changing envp for local envp (err msg : TERM environment variable not set.) maybe fill_envp_list() malfunction ??
+	[x] Clear not working anymore since changing envp for local envp (err msg : TERM environment variable not set.) maybe fill_envp_list() malfunction ??

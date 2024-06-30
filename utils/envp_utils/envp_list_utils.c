@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:42:39 by root              #+#    #+#             */
-/*   Updated: 2024/06/27 18:01:50 by root             ###   ########.fr       */
+/*   Updated: 2024/06/27 21:52:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_envp_list	*list_last(t_envp_list *lst)
 	return (lst);
 }
 
-//[Secured]
+//[SECURED]
 //[COMMENT] Create a new node.
 t_envp_list	*envp_list_create_node(char	*key, char	*value)
 {
