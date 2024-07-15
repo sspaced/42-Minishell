@@ -6,7 +6,7 @@
 /*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/07/15 21:09:13 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:27:11 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ int	load_history(int history_file)
 	return (0);
 }
 
-//[DEBUG] add_history
+//[DEBUG] add_history 
 int main (void)
 {
 	char	*user_input;
