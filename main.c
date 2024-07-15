@@ -6,7 +6,7 @@
 /*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/07/15 22:27:11 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/07/16 01:46:04 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@
 // 	envp_list_clear(&envp_list);
 // }
 
-//[Debug] Pipe
+// [Debug] Pipe
 // int	main(int argc, char **argv, char *envp[])
 // {
 // 	char		***commands;
@@ -220,27 +220,41 @@ char	*strdup_until(const char *str, char until_char)
 	return (str_b -= str_len);
 }
 
+int add_history_logic(int history_file)
+{
+	char *raw_line;
+	char *history_line;
+	
+	raw_line = get_next_line(history_file);
+	if (!raw_line)
+		return (0);
+	history_line = strdup_until(raw_line, '\n');
+	if (!history_line)
+		return (free(raw_line), 0);
+	add_history(history_line);
+	free(raw_line);
+	return (1);
+}
 //[TODO]
 //Need to be secured
 int	load_history(int history_file)
 {
 	char *raw_line;
 	char *history_line;
+	int		status;
 	
-	raw_line = get_next_line(history_file);
-	history_line = strdup_until(raw_line, '\n');
-	if (history_line != NULL)
-		add_history(history_line);
-	while (raw_line)
+	status = 1;
+	while (status)
 	{
 		raw_line = get_next_line(history_file);
+		if (!raw_line)
+			return (0);
 		history_line = strdup_until(raw_line, '\n');
-		if (history_line != NULL)
-			add_history(history_line);
-		else
-		{
-			printf("nothing to add\n");
-		}
+		if (!history_line)
+			return (free(raw_line), 0);
+		add_history(history_line);
+		free(raw_line);
+		free(history_line);
 	}
 	return (0);
 }
@@ -260,11 +274,15 @@ int main (void)
 	while(1)
 	{
 		user_input = readline("minishell$ ");
-		if (user_input != NULL)
+		printf("user_input : %s\n", user_input);
+		if (user_input != NULL && !(ft_strlen(user_input) < 1))
+		{
 			add_history(user_input);
-		history_input = ft_strjoin(user_input, "\n");
-		history_input_len = ft_strlen(history_input);
-		write(history_file, history_input, history_input_len);
+			history_input = ft_strjoin(user_input, "\n");
+			history_input_len = ft_strlen(history_input);
+			write(history_file, history_input, history_input_len);
+			free(history_input);
+		}
 	}
 	close(history_file);
 	return (0);
