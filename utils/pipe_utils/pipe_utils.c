@@ -6,25 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:50:54 by root              #+#    #+#             */
-/*   Updated: 2024/06/30 22:40:51 by root             ###   ########.fr       */
+/*   Updated: 2024/07/01 15:19:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-void free_int_array(int **array, int len)
-{
-	int index;
-
-	index = 0;
-	while(index < len)
-	{
-		if (array[index] != NULL)
-			free(array[index]);
-		index++;
-	}
-	free(array);
-}
 
 //[SECURED]
 int **create_pipe_tab(int pipe_nb)
@@ -40,9 +26,9 @@ int **create_pipe_tab(int pipe_nb)
 	{
 		pipe_fd = malloc(sizeof(int) * 2);
 		if (!pipe_fd)
-			return (free_int_array(pipe_fd_tab, index), NULL);
+			return (clear_int_array(pipe_fd_tab, index), NULL);
 		if (pipe(pipe_fd) == -1)
-			return (free(pipe_fd), free_int_array(pipe_fd_tab, index), NULL);
+			return (free(pipe_fd), clear_int_array(pipe_fd_tab, index), NULL);
 		pipe_fd_tab[index] = pipe_fd;
 		index++;
 		pipe_nb--;
@@ -76,6 +62,20 @@ void	handle_child(char **command, int **pipe_fd_tab, int pipe_fd_tab_len, int in
 		write(2, "failed", 6);
 }
 
+void pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab)
+{
+	int index;
+	int status;
+
+	index = 0;
+	close_all_fd(pipe_fd_tab, pipe_fd_tab_len);
+	while (index < (pipe_fd_tab_len + 1))
+	{
+		waitpid(fork_id_tab[index], &status, 0);
+		index++;
+	}	
+}
+
 //[TODO]
 //		 Test security
 //		 Handle error
@@ -106,20 +106,6 @@ void	launch_pipe(char ***commands, t_envp_list **envp_list)
 		index++;
 	}
 	pipe_await(pipe_fd_tab_len, fork_id_tab, pipe_fd_tab);
-}
-
-void pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab)
-{
-	int index;
-	int status;
-
-	index = 0;
-	close_all_fd(pipe_fd_tab, pipe_fd_tab_len);
-	while (index < (pipe_fd_tab_len + 1))
-	{
-		waitpid(fork_id_tab[index], &status, 0);
-		index++;
-	}	
 }
 
 //[TEMP]

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/06/30 22:38:57 by root             ###   ########.fr       */
+/*   Updated: 2024/07/01 15:45:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 #include <errno.h>
+#include <signal.h>
 
 // struct
 typedef struct s_envp_list
@@ -48,6 +49,7 @@ size_t			array_len(char **array);
 size_t			array_array_len(char ***array);
 size_t			array_len_gen(int **array);
 void			clear_array(char **array);
+void			clear_int_array(int **array, int len);
 //[FOLDER] envp_utils
 //[FILE] envp_list_utils.c
 void			list_add_back(t_envp_list **lst, t_envp_list *new);
@@ -70,8 +72,7 @@ void			launch_pipe(char ***commands, t_envp_list **envp_list);
 char			***create_command(char **argv);
 void			close_fd(int **pipe_fd_tab);
 int				**create_pipe_tab(int pipe_nb);
-void free_int_array(int **array, int len);
-void pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab);
+void			pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab);
 /*#########################################################################*/
 ///////wip
 //[FILE] execve_utils.c

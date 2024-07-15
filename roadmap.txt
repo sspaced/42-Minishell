@@ -12,11 +12,16 @@
 [x] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
 [x] Function that make a char ** from envp link list.
 [ ] Pipe :
-	[ ] Cleanup everything.
-	[ ] Secure everything.
+	[ ] Put every function in correct folder.
+	[ ] Clean .h pipe_utils section.
+	[ ] Secure functions.
+	[ ] Handle Error. 
 [ ] Redirection :
 	[ ] ...
 [ ] Signals : 
 	[ ] ...
 [ ] Bug : 
 	[x] Clear not working anymore since changing envp for local envp (err msg : TERM environment variable not set.) maybe fill_envp_list() malfunction ??
+	[ ] Readline leaks.
+[ ] Question : 
+	[ ] How to error handle launch_pipe ?

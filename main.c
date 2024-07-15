@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/06/30 21:43:10 by root             ###   ########.fr       */
+/*   Updated: 2024/07/11 22:00:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	main(int argc, char **argv, char *envp[])
 	char		***commands;
 	char		**envp_local;
 	t_envp_list	*envp_list;
-	int **fd_tab;
+	int			 **fd_tab;
 
 	envp_list = NULL;
 	if (!fill_envp_list(&envp_list, envp))
@@ -162,70 +162,40 @@ int	main(int argc, char **argv, char *envp[])
 	return (0);
 }
 
-// int main(int argc, char **argv, char *envp[]) {
-//     int pipe_fd[2];
-//     int fork_id;
-//     int fork_id_2;
-//     int status;
-//     char **splited_input;
-//     char **cmd1;
-//     char **cmd2;
-//     t_envp_list *envp_list;
-
-//     splited_input = ft_split(argv[1], '|');
-//     envp_list = NULL;
-//     if (!fill_envp_list(&envp_list, envp))
-//         return (perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
-
-//     if (pipe(pipe_fd) == -1) {
-//         perror("pipe");
-//         return EXIT_FAILURE;
-//     }
-
-//     fork_id = fork();
-//     if (fork_id == -1) {
-//         perror("fork");
-//         return EXIT_FAILURE;
-//     }
-
-//     if (fork_id == 0) {
-//         // First child process
-//         close(pipe_fd[0]); // Close unused read end
-//         dup2(pipe_fd[1], STDOUT_FILENO); // Redirect stdout to pipe write end
-//         close(pipe_fd[1]); // Close write end after duplicating
-
-//         cmd1 = ft_split(splited_input[0], ' ');
-//         if (!exec_command_v2(cmd1[0], cmd1, &envp_list, envp)) {
-//             perror("exec_command_v2");
-//             exit(EXIT_FAILURE);
-//         }
-//     } else {
-//         // Parent process
-//         fork_id_2 = fork();
-//         if (fork_id_2 == -1) {
-//             perror("fork");
-//             return EXIT_FAILURE;
-//         }
-
-//         if (fork_id_2 == 0) {
-//             // Second child process
-//             close(pipe_fd[1]); // Close unused write end
-//             dup2(pipe_fd[0], STDIN_FILENO); // Redirect stdin to pipe read end
-//             close(pipe_fd[0]); // Close read end after duplicating
-
-//             cmd2 = ft_split(splited_input[1], ' ');
-//             if (!exec_command_v2(cmd2[0], cmd2, &envp_list, envp)) {
-//                 perror("exec_command_v2");
-//                 exit(EXIT_FAILURE);
-//             }
-//         } else {
-//             // Parent process waits for both children
-//             close(pipe_fd[0]); // Close both ends of the pipe in parent
-//             close(pipe_fd[1]);
-//             waitpid(fork_id, &status, 0);
-//             waitpid(fork_id_2, &status, 0);
-//         }
-//     }
-
-//     return 0;
+void sig_handler(int sig)
+{
+	if (sig == SIGINT)
+		write(1, "\n", 1);
+	if (sig == SIGQUIT)
+		write(1, "exit", 4);
+}
+//[Debug] Signal
+// int main()
+// {
+// 	struct sigaction	act;
+// 	int pid;
+// 	char buffer[256];
+	
+// 	sigemptyset(&act.sa_mask);
+	
+// 	act.sa_flags = SA_SIGINFO;
+// 	act.sa_handler = &sig_handler;
+// 	if (sigaction(SIGINT, &act, NULL) == -1)
+// 		return (1);
+// 	if (sigaction(SIGQUIT, &act, NULL) == -1)
+// 		return (1);
+// 	pid = getpid();
+// 	ft_putstr_fd("Server PID is ", 1);
+// 	ft_putnbr_fd(pid, 1);
+// 	ft_putchar_fd('\n', 1);
+// 	while (1)
+// 	{
+// 		 if (fgets(buffer, sizeof(buffer), stdin) == NULL)
+// 		 {
+// 			write(1, "exit", 4);
+// 			exit(EXIT_SUCCESS);
+// 		 }
+		 
+// 	}
+// 	return (0);
 // }

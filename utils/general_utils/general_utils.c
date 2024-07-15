@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:45:51 by root              #+#    #+#             */
-/*   Updated: 2024/06/26 18:05:13 by root             ###   ########.fr       */
+/*   Updated: 2024/07/01 15:13:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ size_t	str_len_until(char *str, char until_char)
 
 //[COMMENT] Count element in an array.
 size_t	array_len(char **array)
-{
-	size_t	counter;
-
-	if (!array)
-		return (0);
-	counter = 0;
-	while (array[counter])
-		counter++;
-	return (counter);
-}
-
-//[TEMP]
-size_t	array_len_gen(int **array)
 {
 	size_t	counter;
 
@@ -77,4 +64,18 @@ void	clear_array(char **array)
 		counter++;
 	}
 	free (array);
+}
+
+void clear_int_array(int **array, int len)
+{
+	int index;
+
+	index = 0;
+	while(index < len)
+	{
+		if (array[index] != NULL)
+			free(array[index]);
+		index++;
+	}
+	free(array);
 }
