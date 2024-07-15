@@ -22,6 +22,8 @@ SRCS = 	main.c\
 		builtins/export.c\
 		builtins/unset.c\
 		builtins/cd.c\
+		get_next_line/get_next_line_utils.c\
+		get_next_line/get_next_line.c\
 
 
 

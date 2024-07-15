@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:45:51 by root              #+#    #+#             */
-/*   Updated: 2024/07/01 15:13:41 by root             ###   ########.fr       */
+/*   Updated: 2024/07/15 21:00:41 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	str_len_until(char *str, char until_char)
 	size_t	counter;
 
 	counter = 0;
+	if (!str)
+		return (0);
 	while (str[counter] && str[counter] != until_char)
 		counter++;
 	return (counter);

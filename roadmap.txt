@@ -11,6 +11,7 @@
 [x] Make history.
 [x] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
 [x] Function that make a char ** from envp link list.
+[ ] Make heredoc input implementation.
 [ ] Pipe :
 	[ ] Put every function in correct folder.
 	[ ] Clean .h pipe_utils section.

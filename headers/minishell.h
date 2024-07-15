@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/07/01 15:45:38 by root             ###   ########.fr       */
+/*   Updated: 2024/07/15 20:39:10 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-#include <errno.h>
-#include <signal.h>
+# include <errno.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <string.h>
+# include <sys/types.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 40684
+# endif
 
 // struct
 typedef struct s_envp_list
@@ -67,12 +74,22 @@ int				envp_list_add(t_envp_list **envp_list, char *key, char *value);
 int				envp_list_del(t_envp_list **envp_list, char *key);
 char			**envp_linked_to_list(t_envp_list **envp_list);
 size_t			envp_len(t_envp_list **envp_list);
-//[FOLDER] pipe_utils
+//[FOLDER] pipe_utils.c
 void			launch_pipe(char ***commands, t_envp_list **envp_list);
 char			***create_command(char **argv);
 void			close_fd(int **pipe_fd_tab);
 int				**create_pipe_tab(int pipe_nb);
 void			pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab);
+/*#########################################################################*/
+//[FOLDER] get_next_line.c
+//[FILE] get_next_line_utils.c
+size_t			ft_strlen_gnl(char const *str, int mode);
+char			*ft_strjoin_gnl(char const *s1, char const *s2, char *temp_line);
+//[FILE] get_next_line.c
+void			make_stash(char *line, char *buff);
+char			*make_line(char *line, char *buff);
+char			*stock_line(char *line, char *buff, ssize_t *byte_len, int fd);
+char			*get_next_line(int fd);
 /*#########################################################################*/
 ///////wip
 //[FILE] execve_utils.c

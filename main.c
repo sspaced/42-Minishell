@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/07/11 22:00:22 by root             ###   ########.fr       */
+/*   Updated: 2024/07/15 21:09:13 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,71 +110,69 @@
 // }
 
 //[Debug] Pipe
-int	main(int argc, char **argv, char *envp[])
-{
-	char		***commands;
-	char		**envp_local;
-	t_envp_list	*envp_list;
-	int			 **fd_tab;
+// int	main(int argc, char **argv, char *envp[])
+// {
+// 	char		***commands;
+// 	char		**envp_local;
+// 	t_envp_list	*envp_list;
+// 	int			 **fd_tab;
 
-	envp_list = NULL;
-	if (!fill_envp_list(&envp_list, envp))
-		return(perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
+// 	envp_list = NULL;
+// 	if (!fill_envp_list(&envp_list, envp))
+// 		return(perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
 
-	commands = create_command(argv);
-	launch_pipe(commands, &envp_list);
-	// while(*commands)
-	// {
-	// 	printf("Command : %s, option : %s\n", (*commands)[0], (*commands)[1]);
-	// 	commands++;
-	// }
+// 	commands = create_command(argv);
+// 	launch_pipe(commands, &envp_list);
+// 	// while(*commands)
+// 	// {
+// 	// 	printf("Command : %s, option : %s\n", (*commands)[0], (*commands)[1]);
+// 	// 	commands++;
+// 	// }
 	
-	// pipe(pipe_fd);
+// 	// pipe(pipe_fd);
 	
-	// fork_id = fork();
-	// if (fork_id == 0)
-	// {
-	// 	close(pipe_fd[0]);
-    //     dup2(pipe_fd[1], STDOUT_FILENO);
-    //     close(pipe_fd[1]);
+// 	// fork_id = fork();
+// 	// if (fork_id == 0)
+// 	// {
+// 	// 	close(pipe_fd[0]);
+//     //     dup2(pipe_fd[1], STDOUT_FILENO);
+//     //     close(pipe_fd[1]);
 		
-	// 	if (!exec_command_v2(cmd1[0], cmd1, &envp_list, envp))
-	// 		printf("failed\n");
-	// }
-	// else
-	// {
-	// 	fork_id_2 = fork();
-	// 	if (fork_id_2 == 0)
-	// 	{
-	// 		close(pipe_fd[1]);
-    //         dup2(pipe_fd[0], STDIN_FILENO);
-    //         close(pipe_fd[0]); 
+// 	// 	if (!exec_command_v2(cmd1[0], cmd1, &envp_list, envp))
+// 	// 		printf("failed\n");
+// 	// }
+// 	// else
+// 	// {
+// 	// 	fork_id_2 = fork();
+// 	// 	if (fork_id_2 == 0)
+// 	// 	{
+// 	// 		close(pipe_fd[1]);
+//     //         dup2(pipe_fd[0], STDIN_FILENO);
+//     //         close(pipe_fd[0]); 
 			
-	// 		if (!exec_command_v2(cmd2[0], cmd2, &envp_list, envp))
-	// 			printf("failed2\n");
-	// 	}
-	// 	close(pipe_fd[0]);
-    //     close(pipe_fd[1]);
-    //     waitpid(fork_id, &status, 0);
-    //     waitpid(fork_id_2, &status, 0);
-	// }
-	// launch_pipe(argv);
-	return (0);
-}
+// 	// 		if (!exec_command_v2(cmd2[0], cmd2, &envp_list, envp))
+// 	// 			printf("failed2\n");
+// 	// 	}
+// 	// 	close(pipe_fd[0]);
+//     //     close(pipe_fd[1]);
+//     //     waitpid(fork_id, &status, 0);
+//     //     waitpid(fork_id_2, &status, 0);
+// 	// }
+// 	// launch_pipe(argv);
+// 	return (0);
+// }
 
-void sig_handler(int sig)
-{
-	if (sig == SIGINT)
-		write(1, "\n", 1);
-	if (sig == SIGQUIT)
-		write(1, "exit", 4);
-}
+// void sig_handler(int sig)
+// {
+// 	if (sig == SIGINT)
+// 		write(1, "\n", 1);
+// 	if (sig == SIGQUIT)
+// 		write(1, "exit", 4);
+// }
 //[Debug] Signal
 // int main()
 // {
-// 	struct sigaction	act;
-// 	int pid;
-// 	char buffer[256];
+// 	struct sivoidfer[256];
 	
 // 	sigemptyset(&act.sa_mask);
 	
@@ -199,3 +197,75 @@ void sig_handler(int sig)
 // 	}
 // 	return (0);
 // }
+
+char	*strdup_until(const char *str, char until_char)
+{
+	char	*str_b;
+	int		str_len;
+	int		index;
+
+	index = 0;
+	str_len = str_len_until((char *)str, until_char);
+	if (!str_len)
+		return (NULL);
+	str_b = (char *)malloc(str_len * sizeof(char) + 1);
+	if (!str_b)
+		return (NULL);
+	while (index < str_len)
+	{
+		*str_b++ = *str++;
+		index++;	
+	}
+	*str_b = '\0';
+	return (str_b -= str_len);
+}
+
+//[TODO]
+//Need to be secured
+int	load_history(int history_file)
+{
+	char *raw_line;
+	char *history_line;
+	
+	raw_line = get_next_line(history_file);
+	history_line = strdup_until(raw_line, '\n');
+	if (history_line != NULL)
+		add_history(history_line);
+	while (raw_line)
+	{
+		raw_line = get_next_line(history_file);
+		history_line = strdup_until(raw_line, '\n');
+		if (history_line != NULL)
+			add_history(history_line);
+		else
+		{
+			printf("nothing to add\n");
+		}
+	}
+	return (0);
+}
+
+//[DEBUG] add_history
+int main (void)
+{
+	char	*user_input;
+	char	*history_input;
+	int		history_input_len;
+	int		history_file;
+	
+	history_file = open("./history/history.txt", O_RDWR);
+	if (!history_file)
+		printf("err opening file\n");
+	load_history(history_file);
+	while(1)
+	{
+		user_input = readline("minishell$ ");
+		if (user_input != NULL)
+			add_history(user_input);
+		history_input = ft_strjoin(user_input, "\n");
+		history_input_len = ft_strlen(history_input);
+		write(history_file, history_input, history_input_len);
+	}
+	close(history_file);
+	return (0);
+}
