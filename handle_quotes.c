@@ -1,12 +1,21 @@
+
 #include "minishell.h"
+
 char *extract_single_quoted_value(char *input, int *i)
 {
     int start = ++(*i);
     while (input[*i] && input[*i] != '\'')
         (*i)++;
     char *value = strndup(input + start, *i - start);
-    (*i)++;  // Avancer après le guillemet de fermeture
+    (*i)++;
     return value;
+}
+
+void handle_env_var_in_quotes(char *input, int *i)
+{
+    (*i)++;
+    while (isalnum(input[*i]) || input[*i] == '_')
+        (*i)++;
 }
 
 char *extract_double_quoted_value(char *input, int *i)
@@ -16,15 +25,13 @@ char *extract_double_quoted_value(char *input, int *i)
     {
         if (input[*i] == '$')
         {
-            (*i)++;
-            while (isalnum(input[*i]) || input[*i] == '_')
-                (*i)++;
+            handle_env_var_in_quotes(input, i);
         }
         else
             (*i)++;
     }
     char *value = strndup(input + start, *i - start);
-    (*i)++;  // Avancer après le guillemet de fermeture
+    (*i)++;
     return value;
 }
 
@@ -45,6 +52,7 @@ void handle_quotes(char *input, int *i, t_input **tokens, char quote_type)
         value = extract_single_quoted_value(input, i);
     else
         value = extract_double_quoted_value(input, i);
+
     while (input[*i] == '"' || input[*i] == '\'')
     {
         char next_quote_type = input[*i];
@@ -60,6 +68,3 @@ void handle_quotes(char *input, int *i, t_input **tokens, char quote_type)
     add_token(tokens, token);
     free(value);
 }
-
-
-

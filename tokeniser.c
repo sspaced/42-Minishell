@@ -36,4 +36,3 @@ void tokenize_input(char *input, t_input **tokens)
             handle_word(input, &i, tokens);
     }
 }
-
