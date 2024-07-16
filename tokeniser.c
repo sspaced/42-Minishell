@@ -1,7 +1,9 @@
 #include "minishell.h"
 void handle_word(char *input, int *i, t_input **tokens)
 {
-    int start = *i;
+    int start;
+
+    start = *i;
     while (input[*i] && !isspace(input[*i]) && input[*i] != '>' && input[*i] != '<' && input[*i] != '|')
     {
         if (input[*i] == '$')
@@ -23,7 +25,9 @@ void handle_word(char *input, int *i, t_input **tokens)
 
 void tokenize_input(char *input, t_input **tokens)
 {
-    int i = 0;
+    int i;
+
+    i = 0;
     while (input[i])
     {
         if (isspace(input[i]))
