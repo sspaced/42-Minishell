@@ -6,7 +6,7 @@
 /*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/07/15 20:39:10 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:15:59 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,18 @@ int				envp_list_add(t_envp_list **envp_list, char *key, char *value);
 int				envp_list_del(t_envp_list **envp_list, char *key);
 char			**envp_linked_to_list(t_envp_list **envp_list);
 size_t			envp_len(t_envp_list **envp_list);
-//[FOLDER] pipe_utils.c
+//[FOLDER] pipe_utils
+//[FILE] pipe_utils.c
 void			launch_pipe(char ***commands, t_envp_list **envp_list);
 char			***create_command(char **argv);
 void			close_fd(int **pipe_fd_tab);
 int				**create_pipe_tab(int pipe_nb);
 void			pipe_await(int pipe_fd_tab_len, int *fork_id_tab, int **pipe_fd_tab);
+//[FOLDER] history_utils
+//[FILE] history_utils.c
+char			*strdup_until(const char *str, char until_char);
+int				load_history(int history_file);
+int				add_history_custom(char *user_input, int history_file);
 /*#########################################################################*/
 //[FOLDER] get_next_line.c
 //[FILE] get_next_line_utils.c

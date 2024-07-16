@@ -6,7 +6,7 @@
 /*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/07/16 02:42:21 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:18:32 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,108 +162,48 @@
 // 	return (0);
 // }
 
-void sig_handler(int sig)
-{
-	if (sig == SIGINT)
-		write(1, "\n", 1);
-	if (sig == SIGQUIT)
-		write(1, "exit", 4);
-}
+// void sig_handler(int sig)
+// {
+// 	if (sig == SIGINT)
+// 		write(1, "\n", 1);
+// 	if (sig == SIGQUIT)
+// 		write(1, "exit", 4);
+// }
+
 //[Debug] Signal
-int main()
-{
-	struct buffer[256];
+// int main()
+// {
+// 	struct buffer[256];
 	
-	sigemptyset(&act.sa_mask);
+// 	sigemptyset(&act.sa_mask);
 	
-	act.sa_flags = SA_SIGINFO;
-	act.sa_handler = &sig_handler;
-	if (sigaction(SIGINT, &act, NULL) == -1)
-		return (1);
-	if (sigaction(SIGQUIT, &act, NULL) == -1)
-		return (1);
-	pid = getpid();
-	ft_putstr_fd("Server PID is ", 1);
-	ft_putnbr_fd(pid, 1);
-	ft_putchar_fd('\n', 1);
-	while (1)
-	{
-		 if (fgets(buffer, sizeof(buffer), stdin) == NULL)
-		 {
-			write(1, "exit", 4);
-			exit(EXIT_SUCCESS);
-		 }
+// 	act.sa_flags = SA_SIGINFO;
+// 	act.sa_handler = &sig_handler;
+// 	if (sigaction(SIGINT, &act, NULL) == -1)
+// 		return (1);
+// 	if (sigaction(SIGQUIT, &act, NULL) == -1)
+// 		return (1);
+// 	pid = getpid();
+// 	ft_putstr_fd("Server PID is ", 1);
+// 	ft_putnbr_fd(pid, 1);
+// 	ft_putchar_fd('\n', 1);
+// 	while (1)
+// 	{
+// 		 if (fgets(buffer, sizeof(buffer), stdin) == NULL)
+// 		 {
+// 			write(1, "exit", 4);
+// 			exit(EXIT_SUCCESS);
+// 		 }
 		 
-	}
-	return (0);
-}
+// 	}
+// 	return (0);
+// }
 
-char	*strdup_until(const char *str, char until_char)
-{
-	char	*str_b;
-	int		str_len;
-	int		index;
-
-	index = 0;
-	str_len = str_len_until((char *)str, until_char);
-	if (!str_len)
-		return (NULL);
-	str_b = (char *)malloc(str_len * sizeof(char) + 1);
-	if (!str_b)
-		return (NULL);
-	while (index < str_len)
-	{
-		*str_b++ = *str++;
-		index++;	
-	}
-	*str_b = '\0';
-	return (str_b -= str_len);
-}
-
-int add_history_logic(int history_file)
-{
-	char *raw_line;
-	char *history_line;
-	
-	raw_line = get_next_line(history_file);
-	if (!raw_line)
-		return (0);
-	history_line = strdup_until(raw_line, '\n');
-	if (!history_line)
-		return (free(raw_line), 0);
-	add_history(history_line);
-	free(raw_line);
-	return (1);
-}
-//[SECURED]
-int	load_history(int history_file)
-{
-	char *raw_line;
-	char *history_line;
-	int		status;
-	
-	status = 1;
-	while (status)
-	{
-		raw_line = get_next_line(history_file);
-		if (!raw_line)
-			return (0);
-		history_line = strdup_until(raw_line, '\n');
-		if (!history_line)
-			return (free(raw_line), 0);
-		add_history(history_line);
-		free(raw_line);
-		free(history_line);
-	}
-	return (0);
-}
 
 //[DEBUG] add_history 
 // int main (void)
 // {
 // 	char	*user_input;
-// 	char	*history_input;
-// 	int		history_input_len;
 // 	int		history_file;
 	
 // 	history_file = open("./history/history.txt", O_RDWR);
@@ -273,18 +213,15 @@ int	load_history(int history_file)
 // 	while(1)
 // 	{
 // 		user_input = readline("minishell$ ");
-// 		printf("user_input : %s\n", user_input);
-// 		if (user_input != NULL && !(ft_strlen(user_input) < 1))
-// 		{
-// 			add_history(user_input);
-// 			history_input = ft_strjoin(user_input, "\n");
-// 			history_input_len = ft_strlen(history_input);
-// 			write(history_file, history_input, history_input_len);
-// 			free(history_input);
-// 		}
+// 		add_history_custom(user_input, history_file);
 // 	}
 // 	close(history_file);
 // 	return (0);
 // }
 
+// [["type", "value"], ["type", "value"], ["type", "value"]]
 
+// char **
+// char *** command_array;
+
+// command_array = malloc(nb_command * sizeof(char **));
