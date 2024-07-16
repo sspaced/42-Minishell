@@ -42,5 +42,7 @@ void expand_variables_in_tokens(t_input *tokens);
 char *concatenate_values(char *value1, char *value2);
 char *extract_double_quoted_value(char *input, int *i);
 char *extract_single_quoted_value(char *input, int *i);
+char ***tokens_to_array(t_input *tokens);
+int count_tokens(t_input *tokens);
 
 #endif

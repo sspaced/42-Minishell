@@ -4,9 +4,10 @@
 char *extract_single_quoted_value(char *input, int *i)
 {
     int start = ++(*i);
+    char *value;
     while (input[*i] && input[*i] != '\'')
         (*i)++;
-    char *value = strndup(input + start, *i - start);
+    value = strndup(input + start, *i - start);
     (*i)++;
     return value;
 }
@@ -39,9 +40,9 @@ char *extract_double_quoted_value(char *input, int *i)
 
 char *concatenate_values(char *value1, char *value2)
 {
-    char *new_value
+    char *new_value;
 
-    new_value = = malloc(strlen(value1) + strlen(value2) + 1);
+    new_value = malloc(strlen(value1) + strlen(value2) + 1);
     if (!new_value)
         return NULL;
     strcpy(new_value, value1);
@@ -73,7 +74,7 @@ void handle_quotes(char *input, int *i, t_input **tokens, char quote_type)
         value = new_value;
     }
     
-    token = create_token(WORD, value)
+    token = create_token(WORD, value);
     add_token(tokens, token);
     free(value);
 }
