@@ -1,0 +1,7 @@
+cat test_pipe.txt | grep "l" | wc -l
+
+cmd1 | cmd2 | cmd3
+
+cmd1 : stdin = term, stdout = stdin cmd2
+cmd2 : stdin = stdout cmd1, stdout = stdin cmd3
+cmd3 : stdin = stdout cmd2, stdout = term
