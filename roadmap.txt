@@ -16,13 +16,16 @@
 	[ ] Put every function in correct folder.
 	[ ] Clean .h pipe_utils section.
 	[ ] Secure functions.
-	[ ] Handle Error. 
+	[ ] Handle Error.
+	[ ] Check if command is a builtin if yes do nothing. 
 [ ] Redirection :
 	[ ] ...
 [ ] Signals : 
-	[ ] ...
-[ ] Bug : 
+	[ ] ctrl + \ should do nothing exept for 'grep ""' where it should behave normaly (core dumped).
+	[ ] ctrl + c should just display '^c', in the heredoc and 'grep ""' it should quit.
+	[ ] ctrl + d should exit, in the heredoc it should auit and display 'bash: warning: here-document at line 2 delimited by end-of-file (wanted `d')', in 'grep ""' it should quit.
+[ ] Bug :
 	[x] Clear not working anymore since changing envp for local envp (err msg : TERM environment variable not set.) maybe fill_envp_list() malfunction ??
-	[ ] Readline leaks.
+	[x] Readline leaks. (valg --suppressions=ignore_leaks.supp)
 [ ] Question : 
 	[ ] How to error handle launch_pipe ?

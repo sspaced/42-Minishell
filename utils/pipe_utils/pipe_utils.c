@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:50:54 by root              #+#    #+#             */
-/*   Updated: 2024/07/01 15:19:37 by root             ###   ########.fr       */
+/*   Updated: 2024/07/16 23:58:10 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	close_all_fd(int **pipe_fd_tab, int pipe_fd_tab_len)
 //[TODO] Test security
 //		 Handle error
 void	handle_child(char **command, int **pipe_fd_tab, int pipe_fd_tab_len, int index, t_envp_list **envp_list)
-{	
+{
 	if (index < pipe_fd_tab_len)
 		dup2(pipe_fd_tab[index][1], STDOUT_FILENO);
 	if (index > 0)

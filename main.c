@@ -6,7 +6,7 @@
 /*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/07/16 22:18:32 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:32:47 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,9 +219,38 @@
 // 	return (0);
 // }
 
-// [["type", "value"], ["type", "value"], ["type", "value"]]
+//[["type", "value"], ["type", "value"], ["type", "value"]]
 
 // char **
 // char *** command_array;
 
 // command_array = malloc(nb_command * sizeof(char **));
+
+// void check_builtins(char ***commands)
+// {
+	
+// }
+
+//[DEBUG] check_builtins
+int main(void)
+{
+	char *commands_string = "0 ls, 1 cat , type value";
+	char **splited_command_string;
+	char **command;
+	char ***commands;
+	int index;
+	int command_nb;
+	
+	splited_command_string = ft_split(commands_string, ',');
+	command_nb = 3;
+	commands = malloc(command_nb * sizeof(char **));
+	index = 0;
+	while (index < command_nb)
+	{
+		command = ft_split(splited_command_string[index], ' ');
+		commands[index] = command;
+		index++;	
+	}
+	printf("commands[2][0] : %s\n", commands[2][0]);
+	return (0);
+}
