@@ -29,34 +29,35 @@ char **create_builtins_array(void)
     char **builtins_array;
     builtins_array = malloc(sizeof(char *) * 8);
 
-    builtins_array[1] = "echo";
-    builtins_array[2] = "cd";
-    builtins_array[3] = "pwd";
-    builtins_array[4] = "export";
-    builtins_array[5] = "unset";
-    builtins_array[6] = "env";
-    builtins_array[7] = "exit";
-    builtins_array[8] =  NULL;
-
+    builtins_array[0] = "echo";
+    builtins_array[1] = "cd";
+    builtins_array[2] = "pwd";
+    builtins_array[3] = "export";
+    builtins_array[4] = "unset";
+    builtins_array[5] = "env";
+    builtins_array[6] = "exit";
+    builtins_array[7] =  NULL;
     return(builtins_array);
 }
 
 int is_builtin(t_input *tokens)
-{
+{ 
     int i;
 
     i = 0;
     char **builtins_array = create_builtins_array();
-    
-    while(builtins_array[i])
-        {
+    while(tokens)
+    {
+            i = 0;
+            while(builtins_array[i])
+            {
             if((is_same_string(tokens->value, builtins_array[i])))
                 {   
-                    printf("builtin found :%s\n", builtins_array[i]);
-                    return(1);
+                    add_token(&tokens, create_token(BUILTIN, tokens->value));
                 }
-            else
                 i++;
+            }
+            tokens = tokens -> next;
         }
     return(0);
 }
