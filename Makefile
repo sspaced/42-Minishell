@@ -25,6 +25,14 @@ SRCS = 	main.c\
 		builtins/cd.c\
 		get_next_line/get_next_line_utils.c\
 		get_next_line/get_next_line.c\
+		tomux/create_tokens.c\
+		tomux/expand_variable.c\
+		tomux/handle_quotes.c\
+		tomux/handle_special_char.c\
+		tomux/is_builtin.c\
+		tomux/minishell.c\
+		tomux/tokeniser.c\
+		tomux/tokens_to_array.c\
 
 
 

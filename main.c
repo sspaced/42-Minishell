@@ -6,7 +6,7 @@
 /*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/07/29 19:32:47 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/07/31 02:24:08 by lben-adi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,25 +232,65 @@
 // }
 
 //[DEBUG] check_builtins
+// int main(void)
+// {
+// 	char *commands_string = "0 ls, 1 cat , type value";
+// 	char **splited_command_string;
+// 	char **command;
+// 	char ***commands;
+// 	int index;
+// 	int command_nb;
+	
+// 	splited_command_string = ft_split(commands_string, ',');
+// 	command_nb = 3;
+// 	commands = malloc(command_nb * sizeof(char **));
+// 	index = 0;
+// 	while (index < command_nb)
+// 	{
+// 		command = ft_split(splited_command_string[index], ' ');
+// 		commands[index] = command;
+// 		index++;	
+// 	}
+// 	printf("commands[2][0] : %s\n", commands[2][0]);
+// 	return (0);
+// }
+
+int commands_size(t_input *tokens)
+{
+	int size;
+
+	size = 0;
+	while (tokens)
+	{
+		if (tokens->type == PIPE)
+			size++;
+		tokens = tokens->next;
+	}
+	return (size);
+}
+
+// void convert_to_commands(t_input *tokens)
+// {
+	
+// }
+
+//[DEBUG] parser impl
 int main(void)
 {
-	char *commands_string = "0 ls, 1 cat , type value";
-	char **splited_command_string;
-	char **command;
-	char ***commands;
-	int index;
-	int command_nb;
+	char	*user_input;
+	t_input *tokens = NULL;
 	
-	splited_command_string = ft_split(commands_string, ',');
-	command_nb = 3;
-	commands = malloc(command_nb * sizeof(char **));
-	index = 0;
-	while (index < command_nb)
+	while(1)
 	{
-		command = ft_split(splited_command_string[index], ' ');
-		commands[index] = command;
-		index++;	
+		user_input = readline("minishell$ ");
+        tokenize_input(user_input, &tokens);
+		printf("%d %p\n", commands_size(tokens), tokens);
+		//print_tokens(tokens);
+		// while (tokens)
+    	// {
+        // 	printf("Type: %d, Value: %s\n", tokens->type, tokens->value);
+        // 	tokens = tokens->next;
+    	// }
 	}
-	printf("commands[2][0] : %s\n", commands[2][0]);
 	return (0);
 }
