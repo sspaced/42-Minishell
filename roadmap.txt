@@ -13,13 +13,14 @@
 [x] Function that make a char ** from envp link list.
 [ ] Make heredoc input implementation.
 [ ] Pipe :
-	[ ] Put every function in correct folder.
-	[ ] Clean .h pipe_utils section.
+	[x] Put every function in correct folder.
+	[x] Clean .h pipe_utils section.
 	[ ] Secure functions.
 	[ ] Handle Error.
-	[ ] Check if command is a builtin if yes do nothing. 
+	[ ] Check if command is a builtin if yes do nothing.
 [ ] Redirection :
-	[ ] ...
+	[x] redirect_input need to check if source is fd or file.
+	[x] make redirect_output function (non parsing compatible yet).
 [ ] Signals : 
 	[ ] ctrl + \ should do nothing exept for 'grep ""' where it should behave normaly (core dumped).
 	[ ] ctrl + c should just display '^c', in the heredoc and 'grep ""' it should quit.

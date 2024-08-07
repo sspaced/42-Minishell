@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:42 by loic              #+#    #+#             */
-/*   Updated: 2024/07/31 02:24:08 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:21:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,19 +255,19 @@
 // 	return (0);
 // }
 
-int commands_size(t_input *tokens)
-{
-	int size;
+// int pipe_nb(t_input *tokens)
+// {
+// 	int size;
 
-	size = 0;
-	while (tokens)
-	{
-		if (tokens->type == PIPE)
-			size++;
-		tokens = tokens->next;
-	}
-	return (size);
-}
+// 	size = 0;
+// 	while (tokens)
+// 	{
+// 		if (tokens->type == PIPE)
+// 			size++;
+// 		tokens = tokens->next;
+// 	}
+// 	return (size);
+// }
 
 // void convert_to_commands(t_input *tokens)
 // {
@@ -275,22 +275,41 @@ int commands_size(t_input *tokens)
 // }
 
 //[DEBUG] parser impl
-int main(void)
-{
-	char	*user_input;
-	t_input *tokens = NULL;
+// int main(void)
+// {
+// 	char	*user_input;
+// 	t_input *tokens = NULL;
 	
-	while(1)
-	{
-		user_input = readline("minishell$ ");
-        tokenize_input(user_input, &tokens);
-		printf("%d %p\n", commands_size(tokens), tokens);
-		//print_tokens(tokens);
-		// while (tokens)
-    	// {
-        // 	printf("Type: %d, Value: %s\n", tokens->type, tokens->value);
-        // 	tokens = tokens->next;
-    	// }
-	}
+// 	while(1)
+// 	{
+// 		user_input = readline("minishell$ ");
+//         tokenize_input(user_input, &tokens);
+// 		//print_tokens(tokens);
+// 		while (tokens)
+//     	{
+//         	printf("Type: %d, Value: %s\n", tokens->type, tokens->value);
+//         	tokens = tokens->next;
+//     	}
+// 	}
+// 	return (0);
+// }
+
+//[DEBUG] redirection
+int main(int argc, char **argv, char *envp[])
+{
+	// redirection_type 1 : >>, 2 : >, 3 : <
+	t_envp_list	*envp_list = NULL;
+	//char *command[] = {"cat", ""};
+	char *file_name = "output.txt";
+	int redirection_type = 1;
+	int fd_1 = 1;
+	int fd_2;
+
+	if (!fill_envp_list(&envp_list, envp))
+		return(perror("main.c @ line 28 "), envp_list_clear(&envp_list), EXIT_FAILURE);
+	redirect_input(file_name, 0);
+	//redirect_output(file_name, 1, 2);
+	if (!exec_command_v2(argv[1], argv + 1, &envp_list))
+		write(2, "failed", 6);
 	return (0);
 }

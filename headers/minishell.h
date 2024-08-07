@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lben-adi <lben-adi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/07/30 20:52:23 by lben-adi         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:22:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char			*strdup_until(const char *str, char until_char);
 int				load_history(int history_file);
 int				add_history_custom(char *user_input, int history_file);
 /*#########################################################################*/
-//[FOLDER] get_next_line.c
+//[FOLDER] get_next_line
 //[FILE] get_next_line_utils.c
 size_t			ft_strlen_gnl(char const *str, int mode);
 char			*ft_strjoin_gnl(char const *s1, char const *s2, char *temp_line);
@@ -96,6 +96,12 @@ void			make_stash(char *line, char *buff);
 char			*make_line(char *line, char *buff);
 char			*stock_line(char *line, char *buff, ssize_t *byte_len, int fd);
 char			*get_next_line(int fd);
+/*#########################################################################*/
+//[FOLDER] redirection
+//[FILE] redirection.c
+int				open_or_check_fd(char *target, int mode);
+int				redirect_input(char *target, int source);
+int				redirect_output(char *target, int source, int mode);
 /*#########################################################################*/
 ///////wip
 //[FILE] execve_utils.c

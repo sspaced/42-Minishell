@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 14:37:12 by root              #+#    #+#             */
-/*   Updated: 2024/06/27 18:37:09 by root             ###   ########.fr       */
+/*   Updated: 2024/08/02 17:14:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ char	**envp_linked_to_list(t_envp_list **envp_list)
 		*envp_list = envp_next;
 		counter++;
 	}
+	envp[counter] = NULL;
 	*envp_list = envp_head;
 	return (envp);
 }
