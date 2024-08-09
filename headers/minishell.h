@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:35:53 by loic              #+#    #+#             */
-/*   Updated: 2024/08/07 19:22:09 by root             ###   ########.fr       */
+/*   Updated: 2024/08/08 21:40:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int				export_envp(t_envp_list **envp_list, char *user_input);
 void			unset_envp(t_envp_list **envp_list, char *user_input);
 //[FILE] cd.c
 void			change_directory(char *user_input);
+//[FILE] echo.c
+// void			echo(char argument, int mode);
 /*#########################################################################*/
 //[FOLDER] utils
 
@@ -133,6 +135,13 @@ typedef struct s_input
     char *value;
     struct s_input *next;
 } t_input;
+
+typedef struct s_redirection
+{
+	char *fd1;
+	char *fd2;
+	int redirection_type;
+}	t_redirection;
 
 void handle_greater(char *input, int *i, t_input **tokens);
 void handle_smaller(char *input, int *i, t_input **tokens);

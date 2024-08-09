@@ -1,2 +1,0 @@
-"cat text.txt  << text2.txt | cat hello.txt | ls" -> [word, cat], [word, text.txt] ... ->
-[[TYPE, VALUE], [TYPE, VALUE], [...]]

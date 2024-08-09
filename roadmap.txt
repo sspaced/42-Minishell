@@ -11,16 +11,24 @@
 [x] Make history.
 [x] Function that test if a command is valid (get PATH value -> split -> concat path + cmd -> use access return true/false).
 [x] Function that make a char ** from envp link list.
+[ ] make echo as a builtin (-n argument).
 [ ] Make heredoc input implementation.
-[ ] Pipe :
+[ ] Pipe : 
 	[x] Put every function in correct folder.
 	[x] Clean .h pipe_utils section.
 	[ ] Secure functions.
 	[ ] Handle Error.
 	[ ] Check if command is a builtin if yes do nothing.
+	[ ] implement redirection.
+	Idea :
+	Group everything within pipe symbol, check if the string contain builtin then check if redirection then make char **commands out of whats left.
+	If builtins do nothing, if redirection do it before exec command.
+	"ls -l ./history | grep ".txt" | wc -l >> output.txt" => ["ls -l ./history", "grep ".txt"", " wc -l >> output.txt""] => 
 [ ] Redirection :
 	[x] redirect_input need to check if source is fd or file.
 	[x] make redirect_output function (non parsing compatible yet).
+	[ ] test input/output redirect_input.
+	[ ] securise.
 [ ] Signals : 
 	[ ] ctrl + \ should do nothing exept for 'grep ""' where it should behave normaly (core dumped).
 	[ ] ctrl + c should just display '^c', in the heredoc and 'grep ""' it should quit.

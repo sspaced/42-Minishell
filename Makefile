@@ -24,6 +24,7 @@ SRCS = 	main.c\
 		builtins/export.c\
 		builtins/unset.c\
 		builtins/cd.c\
+		builtins/echo.c\
 		get_next_line/get_next_line_utils.c\
 		get_next_line/get_next_line.c\
 		tomux/create_tokens.c\

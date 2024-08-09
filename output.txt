@@ -1,1 +1,21 @@
-hello
+["<"] -> err
+["<", "2"] -> fd1 = 0 and fd2 = 2
+["<", "cmd"] -> err
+["1", "<"] -> err
+["cmd", "<"] -> err
+["0", "<", "2"] -> fd1 = 0 and fd2 = 2
+["cmd", "<", "2"] -> fd1 = 0 and fd2 = 
+
+extract_len : 
+
+1<
+test<2 => ["test", "2"] => check validity => no => fd1 = NULL => fd2 = NULL.
+1<2 => ["1", "2"] => check validity => yes => array_len != 1 => fd1 = "1" => fd2 = "2".
+<2 => ["2"] => check validity => yes => array_len == 1 => is_first => yes => set_fd1_first => fd2 = "2".
+2< => ["2"] => check validity => yes => array_len == 1 => is_first => no => fd1 = "2" => check index + 1 if exist fd2 = index + 1 if not fd2 = NULL.
+
+Words :
+
+"cat" => is_redirection == 0 => Words
+"cat < output.file" => is_redirection !=0 => split for ' ' => ["cat", "<", "output.file"] => words == everything before '<' or '>' token.
+"1< output.file" = is_redirection !=0 => split for ' ' => ["1<", "output.file"] => words == NULL.
